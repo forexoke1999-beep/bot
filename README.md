@@ -1,2 +1,0 @@
-# bot
-Cuma iseng saja 
