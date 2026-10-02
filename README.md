@@ -1,0 +1,2 @@
+# bot
+Cuma iseng saja 
