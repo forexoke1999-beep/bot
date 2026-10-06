@@ -1,0 +1,98 @@
+{
+  "kandidat": [
+    "YULE",
+    "GHON",
+    "INPP",
+    "BKDP",
+    "KDSI",
+    "SDPC",
+    "TRST"
+  ],
+  "detail": [
+    {
+      "kode": "YULE",
+      "harga": 3360.0,
+      "gain": 4.672897196261682,
+      "rsi": 51.37274014941894,
+      "vol_x": 7.58306781975421,
+      "body_ratio": 2.6,
+      "buyer_freq": 60.0,
+      "macd_ok": false,
+      "stoch_ok": true,
+      "skor": 5
+    },
+    {
+      "kode": "GHON",
+      "harga": 1780.0,
+      "gain": 0.28169014084507044,
+      "rsi": 47.63026768264913,
+      "vol_x": 4.067796610169491,
+      "body_ratio": 1.0,
+      "buyer_freq": 50.0,
+      "macd_ok": false,
+      "stoch_ok": false,
+      "skor": 4
+    },
+    {
+      "kode": "INPP",
+      "harga": 795.0,
+      "gain": 6.0,
+      "rsi": 53.13806786981972,
+      "vol_x": 8.368486352357321,
+      "body_ratio": 1,
+      "buyer_freq": 50.0,
+      "macd_ok": false,
+      "stoch_ok": false,
+      "skor": 4
+    },
+    {
+      "kode": "BKDP",
+      "harga": 64.0,
+      "gain": 3.225806451612903,
+      "rsi": 59.82785868094702,
+      "vol_x": 1.5530405171151875,
+      "body_ratio": 2.0,
+      "buyer_freq": 60.0,
+      "macd_ok": true,
+      "stoch_ok": false,
+      "skor": 2
+    },
+    {
+      "kode": "KDSI",
+      "harga": 440.0,
+      "gain": -0.9009009009009009,
+      "rsi": 45.26321291312575,
+      "vol_x": 2.341603444740619,
+      "body_ratio": 0.0,
+      "buyer_freq": 50.0,
+      "macd_ok": false,
+      "stoch_ok": false,
+      "skor": 2
+    },
+    {
+      "kode": "SDPC",
+      "harga": 193.0,
+      "gain": -3.5000000000000004,
+      "rsi": 50.39830367935554,
+      "vol_x": 1.4606741573033708,
+      "body_ratio": 1,
+      "buyer_freq": 40.0,
+      "macd_ok": true,
+      "stoch_ok": true,
+      "skor": 2
+    },
+    {
+      "kode": "TRST",
+      "harga": 474.0,
+      "gain": -2.4691358024691357,
+      "rsi": 58.034515029581215,
+      "vol_x": 1.3437057991513437,
+      "body_ratio": 1,
+      "buyer_freq": 50.0,
+      "macd_ok": false,
+      "stoch_ok": true,
+      "skor": 1
+    }
+  ],
+  "waktu": "21/04/2026 09:15 WIB"
+}

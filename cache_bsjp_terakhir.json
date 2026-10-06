@@ -1,0 +1,137 @@
+{
+  "kandidat": [
+    "BDMN",
+    "YULE",
+    "CTTH",
+    "LPIN",
+    "SAME",
+    "STAA",
+    "TUGU",
+    "PKPK",
+    "GRPH",
+    "BAYU"
+  ],
+  "detail": [
+    {
+      "kode": "BDMN",
+      "harga": 2870.0,
+      "gain": 12.109375,
+      "rsi": 71.8926262213371,
+      "vol_x": 3.820069739966277,
+      "body_ratio": 6.5,
+      "buyer_freq": 60.0,
+      "macd_ok": true,
+      "stoch_ok": true,
+      "skor": 7
+    },
+    {
+      "kode": "YULE",
+      "harga": 3360.0,
+      "gain": 4.672897196261682,
+      "rsi": 51.37274014941894,
+      "vol_x": 7.58306781975421,
+      "body_ratio": 2.6,
+      "buyer_freq": 60.0,
+      "macd_ok": true,
+      "stoch_ok": true,
+      "skor": 7
+    },
+    {
+      "kode": "CTTH",
+      "harga": 115.0,
+      "gain": 2.6785714285714284,
+      "rsi": 74.35674207861146,
+      "vol_x": 2.5503875555510205,
+      "body_ratio": 28.0,
+      "buyer_freq": 40.0,
+      "macd_ok": true,
+      "stoch_ok": true,
+      "skor": 6
+    },
+    {
+      "kode": "LPIN",
+      "harga": 460.0,
+      "gain": 2.2222222222222223,
+      "rsi": 61.47374419005339,
+      "vol_x": 2.9538207157198535,
+      "body_ratio": 1,
+      "buyer_freq": 70.0,
+      "macd_ok": true,
+      "stoch_ok": true,
+      "skor": 6
+    },
+    {
+      "kode": "SAME",
+      "harga": 346.0,
+      "gain": 0.5813953488372093,
+      "rsi": 55.58829485720602,
+      "vol_x": 1.3634123637956523,
+      "body_ratio": 0.0,
+      "buyer_freq": 40.0,
+      "macd_ok": true,
+      "stoch_ok": true,
+      "skor": 6
+    },
+    {
+      "kode": "STAA",
+      "harga": 1310.0,
+      "gain": -1.8726591760299627,
+      "rsi": 59.96255235417568,
+      "vol_x": 2.0752077101416235,
+      "body_ratio": 1.3333333333333333,
+      "buyer_freq": 60.0,
+      "macd_ok": true,
+      "stoch_ok": true,
+      "skor": 6
+    },
+    {
+      "kode": "TUGU",
+      "harga": 1310.0,
+      "gain": 13.41991341991342,
+      "rsi": 58.04244464502192,
+      "vol_x": 2.0124690984453593,
+      "body_ratio": 1.5,
+      "buyer_freq": 50.0,
+      "macd_ok": true,
+      "stoch_ok": true,
+      "skor": 6
+    },
+    {
+      "kode": "PKPK",
+      "harga": 2640.0,
+      "gain": 10.0,
+      "rsi": 74.74719940422483,
+      "vol_x": 4.010463808303032,
+      "body_ratio": 5.714285714285714,
+      "buyer_freq": 50.0,
+      "macd_ok": true,
+      "stoch_ok": false,
+      "skor": 5
+    },
+    {
+      "kode": "GRPH",
+      "harga": 65.0,
+      "gain": -2.9850746268656714,
+      "rsi": 65.81613642155487,
+      "vol_x": 6.875732035510854,
+      "body_ratio": 4.5,
+      "buyer_freq": 50.0,
+      "macd_ok": true,
+      "stoch_ok": false,
+      "skor": 4
+    },
+    {
+      "kode": "BAYU",
+      "harga": 1350.0,
+      "gain": -1.098901098901099,
+      "rsi": 43.177871687399396,
+      "vol_x": 3.782210698978782,
+      "body_ratio": 8.0,
+      "buyer_freq": 40.0,
+      "macd_ok": false,
+      "stoch_ok": false,
+      "skor": 4
+    }
+  ],
+  "waktu": "21/04/2026 15:21 WIB"
+}
