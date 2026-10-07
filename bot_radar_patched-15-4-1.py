@@ -1934,6 +1934,7 @@ def loop_intraday_scanner():
 
 # ── INISIALISASI DB ───────────────────────────────────────────
 init_db()
+_algo_storage_status()
 
 def _init_sinyal_hari_ini():
     """Load sinyal hari ini dari DB ke memory — survive bot restart."""
@@ -7292,26 +7293,39 @@ ALGO_FILE      = os.path.join(DATA_DIR, "user_algo.json")
 _json_lock = threading.Lock()  # global lock semua operasi JSON file
 
 def _load_json(path):
+    """Load JSON persistent. Jika file utama rusak, coba backup .bak."""
     with _json_lock:
-        if not _os.path.exists(path):
-            return {}
-        try:
-            with open(path, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception as e:
-            logger.error("_load_json GAGAL path=%s err=%s", path, e)
-            return {}
+        candidates = [path, path + ".bak"]
+        for candidate in candidates:
+            if not _os.path.exists(candidate):
+                continue
+            try:
+                with open(candidate, "r", encoding="utf-8") as f:
+                    obj = json.load(f)
+                if candidate != path:
+                    logger.warning("_load_json RECOVERED dari backup: %s", candidate)
+                return obj
+            except Exception as e:
+                logger.error("_load_json GAGAL path=%s err=%s", candidate, e)
+        return {}
 
 def _save_json(path, data):
-    """Atomic write: tulis ke .tmp → os.replace. Aman dari crash & concurrent write."""
+    """Atomic persistent write + backup. Aman dari restart/crash Railway."""
     tmp = path + ".tmp"
+    bak = path + ".bak"
     with _json_lock:
         try:
+            # Tulis lengkap ke file sementara lalu fsync.
             with open(tmp, "w", encoding="utf-8") as f:
                 json.dump(data, f, ensure_ascii=False, indent=2)
                 f.flush()
                 _os.fsync(f.fileno())
+            # Simpan versi terakhir yang valid sebagai backup sebelum replace.
+            if _os.path.exists(path):
+                try: _os.replace(path, bak)
+                except Exception: _os.copy2(path, bak)
             _os.replace(tmp, path)
+            logger.info("PERSIST SAVE OK path=%s bytes=%d", path, _os.path.getsize(path))
         except Exception as e:
             logger.error("_save_json GAGAL path=%s err=%s", path, e)
             try: _os.remove(tmp)
@@ -7325,6 +7339,17 @@ def _load_algo():
 def _save_algo(data):
     """Simpan semua data algo ke file JSON. Raises on failure."""
     _save_json(ALGO_FILE, data)
+
+def _algo_storage_status():
+    """Diagnostic persistence status untuk log Railway."""
+    try:
+        loaded = _load_algo()
+        logger.info("ALGO STORAGE | dir=%s exists=%s file=%s exists=%s users=%d volume_expected=/app/data",
+                    DATA_DIR, _os.path.isdir(DATA_DIR), ALGO_FILE, _os.path.exists(ALGO_FILE), len(loaded))
+        return loaded
+    except Exception as e:
+        logger.error("ALGO STORAGE CHECK ERROR: %s", e)
+        return {}
 
 # ============================================================
 # --- /menu — KEYBOARD PERINTAH ---
@@ -14503,11 +14528,11 @@ def proses_algo(user_id, args, dest):
             import re as _re_tmp
             clean_query=_re_tmp.sub(r'\btitle\s+.*$','',raw_full,flags=_re_tmp.IGNORECASE).strip()
             my[nama]={"query":clean_query,"title":ttl,"aktif":True,"dibuat":now_wib().strftime("%d/%m/%Y %H:%M")}
+            data[uid]=my
             try: _save_algo(data)
             except Exception as _se:
                 logger.error('proses_algo SAVE L14344 GAGAL uid=%s err=%s', uid, _se)
                 dest_kirim_teks(dest,f'❌ Gagal simpan algo: `{_se}`. Hubungi admin.'); return
-            data[uid]=my
             _mention = "@wordly\\_algo\\_bot"
             dest_kirim_teks(dest,f"✅ *Algo '{ttl}' disimpan!*\n📌 _{ttl}_\n📋 `{_filter_summary(fc)}`\nCoba: `/algo run {nama}`\n\n📲 Sinyal algo kamu akan muncul di {_mention}"); return
         else:
@@ -14532,11 +14557,11 @@ def proses_algo(user_id, args, dest):
         import re as _re_tmp2
         clean_query=_re_tmp2.sub(r'\btitle\s+.*$','',query,flags=_re_tmp2.IGNORECASE).strip()
         my[nama]={"query":clean_query,"title":ttl,"aktif":True,"dibuat":now_wib().strftime("%d/%m/%Y %H:%M")}
+        data[uid]=my
         try: _save_algo(data)
         except Exception as _se:
             logger.error('proses_algo SAVE L14369 GAGAL uid=%s err=%s', uid, _se)
             dest_kirim_teks(dest,f'❌ Gagal simpan algo: `{_se}`. Hubungi admin.'); return
-        data[uid]=my
         _mention = "@wordly\\_algo\\_bot"
         dest_kirim_teks(dest,f"✅ *Algo '{ttl}' disimpan!*\n📌 _{ttl}_\n📋 `{_filter_summary(fc)}`\nCoba: `/algo run {nama}`\n\n📲 Sinyal algo kamu akan muncul di {_mention}"); return
 
@@ -14556,11 +14581,11 @@ def proses_algo(user_id, args, dest):
         ttl=fc.get("_title") or my[nama].get("title",nama.upper())
         import re as _re_tmp3
         clean_query=_re_tmp3.sub(r'\btitle\s+.*$','',query,flags=_re_tmp3.IGNORECASE).strip()
+        my[nama]["query"]=clean_query; my[nama]["title"]=ttl; data[uid]=my
         try: _save_algo(data)
         except Exception as _se:
             logger.error('proses_algo SAVE L14381 GAGAL uid=%s err=%s', uid, _se)
             dest_kirim_teks(dest,f'❌ Gagal simpan algo: `{_se}`. Hubungi admin.'); return
-        my[nama]["query"]=clean_query; my[nama]["title"]=ttl; data[uid]=my
         dest_kirim_teks(dest,f"✏️ Algo '{nama}' diperbarui!\n📌 _{ttl}_\n📋 `{_filter_summary(fc)}`"); return
 
     if cmd=="del":
