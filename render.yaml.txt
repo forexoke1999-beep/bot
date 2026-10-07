@@ -1,6 +1,0 @@
-services:
-  - type: worker
-    name: bot-radar
-    env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: python bot_radar_patched-13.py
